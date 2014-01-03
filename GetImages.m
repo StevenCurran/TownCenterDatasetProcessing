@@ -8,13 +8,22 @@ nBlocks = numel(blockSize);
 
 gt = LoadGroundTruthData();
 
+if (exist('OutputImages','dir') == 7);
+    rmdir('OutputImages','s');
+else(exist('OutputImages','dir') == 0);
+    mkdir('OutputImages','s');
+end    
+
+
+imagesMap = containers.Map;
+mkdir('OutputImages')
 tic
 for i = 1 : 1
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
     for j = 1 : 500
-        disp(blockSize(i)+j-1)
+        %disp(blockSize(i)+j-1)
         var = blockSize(i)+j-1;
         im = a(:,:,:,j);
         
@@ -33,14 +42,17 @@ for i = 1 : 1
                 %imAsDouble = rgb2gray(subIm);
                 %imAsDouble = double(imAsDouble)/255;
                 
-                imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
+              %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
+              subIm = rgb2gray(subIm);
+              subIm = double(subIm)/255;
+              imagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
             end
         end
         
     end
 end
 toc
-
+save('images.mat','imagesMap');
 
 
 end

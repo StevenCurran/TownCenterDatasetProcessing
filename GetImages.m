@@ -44,6 +44,7 @@ for i = 1 : 1
                 
               %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
               subIm = rgb2gray(subIm);
+              subIm = imresize(subIm, [52 28]);
               subIm = double(subIm)/255;
               imagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
             end

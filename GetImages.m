@@ -1,4 +1,4 @@
-function [ims] = GetImages()
+function [peopleImages] = GetImages()
 tic
 movie = VideoReader('TownCentreXVID.avi');
 nFrames = movie.NumberOfFrames;
@@ -15,10 +15,10 @@ else(exist('OutputImages','dir') == 0);
 end    
 
 
-imagesMap = containers.Map;
+peopleImagesMap = containers.Map;
 mkdir('OutputImages')
 tic
-for i = 1 : 1
+for i = 1 : length(blockSize)
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
@@ -27,7 +27,7 @@ for i = 1 : 1
         var = blockSize(i)+j-1;
         im = a(:,:,:,j);
         
-        tmp = gt(gt(:,2)== var,:);
+        tmp = gt(gt(:,2)== var,:); 
         if(numel(tmp)== 0)
             continue
         end
@@ -46,15 +46,15 @@ for i = 1 : 1
               subIm = rgb2gray(subIm);
               subIm = imresize(subIm, [52 28]);
               subIm = double(subIm)/255;
-              imagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
+              peopleImagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
             end
         end
         
     end
 end
 toc
-im = imagesMap;
-save('images.mat','imagesMap');
+peopleImages = ConvertFromCellArray(peopleImagesMap.values);
+%save('peopleImages.mat','peopleImagesMap');
 
 
 end

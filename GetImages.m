@@ -1,4 +1,4 @@
-function [] = GetImages()
+function [ims] = GetImages()
 tic
 movie = VideoReader('TownCentreXVID.avi');
 nFrames = movie.NumberOfFrames;
@@ -53,6 +53,7 @@ for i = 1 : 1
     end
 end
 toc
+im = imagesMap;
 save('images.mat','imagesMap');
 
 

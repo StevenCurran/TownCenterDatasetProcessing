@@ -1,16 +1,16 @@
-function [  ] = GenerateNonPeopleSegments( inputGroundTruth , image)
+function [ returnSegments ] = GenerateNonPeopleSegments( inputGroundTruth , image)
 
-returnSegments = []
+returnSegments = {};
 
 while true
     
     box1.MinX = randi([1 1920-28]);
     box1.MinY = randi([1 1080-52]); %Change this if we are changing the conv size
     box1.MaxX = box1.MinX + 28;
-    box1.MaxY = box1.Miny + 52;
+    box1.MaxY = box1.MinY + 52;
     
     for i = 1 : length(inputGroundTruth)
-        coords = [inputGroundTruth(i,3) inputGroundTruth(i,4) inputGroundTruth(i,5) inputGroundTruth(i,6)]
+        coords = [inputGroundTruth(i,3) inputGroundTruth(i,4) inputGroundTruth(i,5) inputGroundTruth(i,6)];
         box2.MinY = coords(2);
         box2.MinX = coords(1);
         box2.MaxX = coords(3);
@@ -18,10 +18,13 @@ while true
         if(collides(box1,box2) == true)
             break;
         else
+            if(i == length(inputGroundTruth))
+                returnSegments = [returnSegments ; GetSubImage([box1.MinX box1.MinY box1.MaxX box1.MaxY],image)];
+            end
             continue;
         end
     end
-       
+     
     
     if(length(returnSegments) == 5)
         break;
@@ -43,17 +46,6 @@ end
             output = true;
         end
     end
-
-
-
-image1 = GetSubImage(coords,image)
-
-figure
-imshow(ans)
-
-figure
-imshow(image)
-axis on
 
 % http://gamemath.com/2011/09/detecting-whether-two-boxes-overlap/
 

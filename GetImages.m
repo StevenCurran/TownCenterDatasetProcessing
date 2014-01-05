@@ -1,4 +1,4 @@
-function [peopleImages] = GetImages()
+function [peopleImages, nonPeopleImages] = GetImages()
 tic
 movie = VideoReader('TownCentreXVID.avi');
 nFrames = movie.NumberOfFrames;
@@ -19,9 +19,10 @@ end
 
 
 peopleImagesMap = containers.Map;
+nonPeopleImages = {};
 mkdir('OutputImages')
 tic
-for i = 1 : length(blockSize)
+for i = 1 : 3
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
@@ -35,7 +36,13 @@ for i = 1 : length(blockSize)
             continue
         end
         
-       GenerateNonPeopleSegments(tmp,im);
+       nonPeopleImages = [nonPeopleImages ; GenerateNonPeopleSegments(tmp,im)];
+       
+       %
+       %for k = 1 : length(nonPeopleImages)
+       %     imwrite(rgb2gray(nonPeopleImages{k}),['OutputImages/' 'p' num2str(randi([1 500000])) '.png'] ,'png')
+       %end
+       
         
         %This is going to have to go into a loop, as tmp will be pulling
         %out muliple images per frame.
@@ -61,6 +68,5 @@ peopleImages = ConvertFromCellArray(peopleImagesMap.values);
                 
               %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
               
-
-end
+      end
 

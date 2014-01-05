@@ -5,7 +5,7 @@ function [b] = GetSubImage(input, im)
    r2 = input(4); c2 = input(3);
    
    a = r1:r2;
-   b =c1:c2;
+   b = c1:c2;
    
    height = 1080;
    width = 1920;

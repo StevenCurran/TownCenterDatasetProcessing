@@ -8,6 +8,9 @@ nBlocks = numel(blockSize);
 
 gt = LoadGroundTruthData();
 
+IMAGEHEIGHT = 52;
+IMAGEWIDTH = 28;
+
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
 else(exist('OutputImages','dir') == 0);
@@ -32,6 +35,8 @@ for i = 1 : length(blockSize)
             continue
         end
         
+       GenerateNonPeopleSegments(tmp,im);
+        
         %This is going to have to go into a loop, as tmp will be pulling
         %out muliple images per frame.
         
@@ -39,12 +44,8 @@ for i = 1 : length(blockSize)
             subIm = GetSubImage([tmp(k,3) tmp(k,4) tmp(k,5) tmp(k,6)],im); % change this to linear indexing
             if(size(subIm) > 0)
                 
-                %imAsDouble = rgb2gray(subIm);
-                %imAsDouble = double(imAsDouble)/255;
-                
-              %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
-              subIm = rgb2gray(subIm);
-              subIm = imresize(subIm, [52 28]);
+            subIm = rgb2gray(subIm);
+              subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
               subIm = double(subIm)/255;
               peopleImagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
             end
@@ -55,7 +56,11 @@ end
 toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
 %save('peopleImages.mat','peopleImagesMap');
-
+     %imAsDouble = rgb2gray(subIm);
+                %imAsDouble = double(imAsDouble)/255;
+                
+              %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
+              
 
 end
 

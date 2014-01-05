@@ -15,7 +15,7 @@ if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
 else(exist('OutputImages','dir') == 0);
     mkdir('OutputImages','s');
-end    
+end
 
 
 peopleImagesMap = containers.Map;
@@ -31,18 +31,18 @@ for i = 1 : 3
         var = blockSize(i)+j-1;
         im = a(:,:,:,j);
         
-        tmp = gt(gt(:,2)== var,:); 
+        tmp = gt(gt(:,2)== var,:);
         if(numel(tmp)== 0)
             continue
         end
         
-       nonPeopleImages = [nonPeopleImages ; GenerateNonPeopleSegments(tmp,im)];
-       
-       %
-       %for k = 1 : length(nonPeopleImages)
-       %     imwrite(rgb2gray(nonPeopleImages{k}),['OutputImages/' 'p' num2str(randi([1 500000])) '.png'] ,'png')
-       %end
-       
+        nonPeopleImages = [nonPeopleImages ; GenerateNonPeopleSegments(tmp,im)];
+        
+        %
+        %for k = 1 : length(nonPeopleImages)
+        %     imwrite(rgb2gray(nonPeopleImages{k}),['OutputImages/' 'p' num2str(randi([1 500000])) '.png'] ,'png')
+        %end
+        
         
         %This is going to have to go into a loop, as tmp will be pulling
         %out muliple images per frame.
@@ -51,10 +51,10 @@ for i = 1 : 3
             subIm = GetSubImage([tmp(k,3) tmp(k,4) tmp(k,5) tmp(k,6)],im); % change this to linear indexing
             if(size(subIm) > 0)
                 
-            subIm = rgb2gray(subIm);
-              subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
-              subIm = double(subIm)/255;
-              peopleImagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
+                subIm = rgb2gray(subIm);
+                subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
+                subIm = double(subIm)/255;
+                peopleImagesMap(['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png']) = subIm;
             end
         end
         
@@ -63,10 +63,10 @@ end
 toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
 %save('peopleImages.mat','peopleImagesMap');
-     %imAsDouble = rgb2gray(subIm);
-                %imAsDouble = double(imAsDouble)/255;
-                
-              %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
-              
-      end
+%imAsDouble = rgb2gray(subIm);
+%imAsDouble = double(imAsDouble)/255;
+
+%  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
+
+end
 

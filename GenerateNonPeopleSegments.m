@@ -1,13 +1,18 @@
 function [ returnSegments ] = GenerateNonPeopleSegments( inputGroundTruth , image)
 
+
+IMAGEHEIGHT = 126;
+IMAGEWIDTH = 78;
+NUMBEROFIMAGES = 15;
+
 returnSegments = {};
 
 while true
     
-    box1.MinX = randi([1 1920-28]);
-    box1.MinY = randi([1 1080-52]); %Change this if we are changing the conv size
-    box1.MaxX = box1.MinX + 28;
-    box1.MaxY = box1.MinY + 52;
+    box1.MinX = randi([1 1920-IMAGEWIDTH]);
+    box1.MinY = randi([1 1080-IMAGEHEIGHT]); %Change this if we are changing the conv size
+    box1.MaxX = box1.MinX + IMAGEWIDTH;
+    box1.MaxY = box1.MinY + IMAGEHEIGHT;
     
     for i = 1 : length(inputGroundTruth)
         coords = [inputGroundTruth(i,3) inputGroundTruth(i,4) inputGroundTruth(i,5) inputGroundTruth(i,6)];
@@ -26,7 +31,7 @@ while true
     end
      
     
-    if(length(returnSegments) == 5)
+    if(length(returnSegments) == NUMBEROFIMAGES)
         break;
     end
     

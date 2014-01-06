@@ -8,8 +8,8 @@ nBlocks = numel(blockSize);
 
 gt = LoadGroundTruthData();
 
-IMAGEHEIGHT = 52;
-IMAGEWIDTH = 28;
+IMAGEHEIGHT = 126;
+IMAGEWIDTH = 78;
 
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');

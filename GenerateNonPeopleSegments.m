@@ -3,6 +3,7 @@ function [ returnSegments ] = GenerateNonPeopleSegments( inputGroundTruth , imag
 
 IMAGEHEIGHT = 126;
 IMAGEWIDTH = 78;
+
 NUMBEROFIMAGES = 15;
 
 returnSegments = {};
@@ -24,7 +25,10 @@ while true
             break;
         else
             if(i == length(inputGroundTruth))
-                returnSegments = [returnSegments ; GetSubImage([box1.MinX box1.MinY box1.MaxX box1.MaxY],image)];
+                subIm = GetSubImage([box1.MinX box1.MinY box1.MaxX box1.MaxY],image);
+                subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
+                subIm = double(subIm)/255;
+                returnSegments = [returnSegments ; subIm];
             end
             continue;
         end

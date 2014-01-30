@@ -36,7 +36,7 @@ for i = 1 : 3
             continue
         end
         
-        nonPeopleImages = [nonPeopleImages ; GenerateNonPeopleSegments(tmp,im)];
+        nonPeopleImages = [nonPeopleImages ; GenerateNonPeopleSegments(tmp,rgb2gray(im))];
         
         %
         %for k = 1 : length(nonPeopleImages)
@@ -62,9 +62,9 @@ for i = 1 : 3
 end
 toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
-%save('peopleImages.mat','peopleImagesMap');
-%imAsDouble = rgb2gray(subIm);
-%imAsDouble = double(imAsDouble)/255;
+nonPeopleImages = ConvertFromCellArray(nonPeople);
+save('peopleImages.mat','peopleImages');
+save('nonPeopleImages.mat','nonPeopleImages');
 
 %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
 

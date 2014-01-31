@@ -8,8 +8,8 @@ nBlocks = numel(blockSize);
 
 gt = LoadGroundTruthData();
 
-IMAGEHEIGHT = 126;
-IMAGEWIDTH = 78;
+IMAGEHEIGHT = 124;
+IMAGEWIDTH = 76;
 
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
@@ -62,9 +62,9 @@ for i = 1 : 3
 end
 toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
-nonPeopleImages = ConvertFromCellArray(nonPeople);
-save('peopleImages.mat','peopleImages');
-save('nonPeopleImages.mat','nonPeopleImages');
+nonPeopleImages = ConvertFromCellArray(nonPeopleImages);
+%save('peopleImages.mat','peopleImages');
+%save('nonPeopleImages.mat','nonPeopleImages');
 
 %  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
 

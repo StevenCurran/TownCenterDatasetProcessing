@@ -1,8 +1,8 @@
 function [ returnSegments ] = GenerateNonPeopleSegments( inputGroundTruth , image)
 
 
-IMAGEHEIGHT = 126;
-IMAGEWIDTH = 78;
+IMAGEHEIGHT = 124;
+IMAGEWIDTH = 76;
 
 NUMBEROFIMAGES = 15;
 

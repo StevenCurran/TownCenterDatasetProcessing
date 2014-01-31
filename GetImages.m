@@ -10,6 +10,7 @@ gt = LoadGroundTruthData();
 
 IMAGEHEIGHT = 124;
 IMAGEWIDTH = 76;
+NUMBER_OF_IMAGES = 10000;
 
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
@@ -63,6 +64,13 @@ end
 toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
 nonPeopleImages = ConvertFromCellArray(nonPeopleImages);
+
+peopleImages = peopleImages(:,:,1:NUMBER_OF_IMAGES);
+nonPeopleImages = nonPeopleImages(:,:,1:NUMBER_OF_IMAGES);
+%This may be able to be moved up, so that the cell array conversion will be
+%over less elements.
+
+
 %save('peopleImages.mat','peopleImages');
 %save('nonPeopleImages.mat','nonPeopleImages');
 

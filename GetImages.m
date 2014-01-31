@@ -69,6 +69,7 @@ peopleImages = peopleImages(:,:,1:NUMBER_OF_IMAGES);
 nonPeopleImages = nonPeopleImages(:,:,1:NUMBER_OF_IMAGES);
 %This may be able to be moved up, so that the cell array conversion will be
 %over less elements.
+%should we shuffle here??
 
 
 %save('peopleImages.mat','peopleImages');

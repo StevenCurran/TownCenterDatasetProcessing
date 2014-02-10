@@ -26,6 +26,7 @@ while true
         else
             if(i == length(inputGroundTruth))
                 subIm = GetSubImage([box1.MinX box1.MinY box1.MaxX box1.MaxY],image);
+                imshow(subIm)
                 subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
                 subIm = double(subIm)/255;
                 returnSegments = [returnSegments ; subIm];
@@ -43,13 +44,13 @@ end
 
     function [output] = boxesIntersect(box1, box2)
         %starts at the lower left, then has a W / H
-        a = [box1.MinX box1.MaxY diff(box1.MinX, box1.MaxX) diff(box1.MinY, box1.MaxY)];
-        b = [box2.MinX box2.MaxY diff(box2.MinX, box2.MaxX) diff(box2.MinY, box2.MaxY)];
+        a = [box1.MinX box1.MaxY abs(box1.MinX - box1.MaxX) abs(box1.MinY - box1.MaxY)];
+        b = [box2.MinX box2.MaxY abs(box2.MinX - box2.MaxX) abs(box2.MinY - box2.MaxY)];
         area = rectint(a,b);
         if(area <= 0)
-            output = true;
-        else
             output = false;
+        else
+            output = true;
         end
     end
 

@@ -21,7 +21,7 @@ while true
         box2.MinX = coords(1);
         box2.MaxX = coords(3);
         box2.MaxY = coords(4);
-        if(collides(box1,box2) == true)
+        if(boxesIntersect(box1,box2) == true) %can change this back to collides
             break;
         else
             if(i == length(inputGroundTruth))
@@ -40,6 +40,18 @@ while true
     end
     
 end
+
+    function [output] = boxesIntersect(box1, box2)
+        %starts at the lower left, then has a W / H
+        a = [box1.MinX box1.MaxY diff(box1.MinX, box1.MaxX) diff(box1.MinY, box1.MaxY)];
+        b = [box2.MinX box2.MaxY diff(box2.MinX, box2.MaxX) diff(box2.MinY, box2.MaxY)];
+        area = rectint(a,b);
+        if(area <= 0)
+            output = true;
+        else
+            output = false;
+        end
+    end
 
 
     function [output] = collides(box1, box2)

@@ -23,7 +23,7 @@ peopleImagesMap = containers.Map;
 nonPeopleImages = {};
 mkdir('OutputImages')
 tic
-for i = 1 : 3
+for i = 1 : 1
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')

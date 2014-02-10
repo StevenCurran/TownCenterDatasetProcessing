@@ -7,6 +7,7 @@ IMAGEWIDTH = 76;
 NUMBEROFIMAGES = 15;
 
 returnSegments = {};
+DebugDrawGTData(inputGroundTruth, image);
 
 while true
     

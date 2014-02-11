@@ -50,8 +50,7 @@ for i = 1 : 1
         
         for k = 1 : length(tmp)
             subIm = GetSubImage([tmp(k,3) tmp(k,4) tmp(k,5) tmp(k,6)],im); % change this to linear indexing
-            if(size(subIm) > 0)
-                
+            if(size(subIm,1) > 1 && size(subIm,2) > 1)
                 subIm = rgb2gray(subIm);
                 subIm = imresize(subIm, [IMAGEHEIGHT IMAGEWIDTH]);
                 subIm = double(subIm)/255;
@@ -75,7 +74,7 @@ nonPeopleImages = nonPeopleImages(:,:,1:NUMBER_OF_IMAGES);
 %save('peopleImages.mat','peopleImages');
 %save('nonPeopleImages.mat','nonPeopleImages');
 
-%  imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
+imwrite(rgb2gray(subIm),['OutputImages/' 'p' num2str(tmp(k,1)) 'f' num2str(tmp(k,2)) '.png'] ,'png')
 
 end
 

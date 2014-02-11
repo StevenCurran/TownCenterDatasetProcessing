@@ -5,7 +5,7 @@ figure, imshow(image), hold on, grid on
 
 for i = 1 : length(gt)
     coords = [gt(i,3) gt(i,4) gt(i,5) gt(i,6)];
-    box2.MinY = coords(2);
+    box2.MinY = coords(2); %This is the bottom left hand part of the box.
     box2.MinX = coords(1);
     box2.MaxX = coords(3);
     box2.MaxY = coords(4);

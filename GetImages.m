@@ -64,9 +64,9 @@ toc
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
 nonPeopleImages = ConvertFromCellArray(nonPeopleImages);
 
-%for i = 1 : size(nonPeopleImages, 3)
- %   imwrite(nonPeopleImages(:,:,i),['NonPedImages/' 'p' num2str(i) '.png'] ,'png')
-%end
+for i = 1 : size(nonPeopleImages, 3)
+    imwrite(nonPeopleImages(:,:,i),['NonPedImages/' 'p' num2str(i) '.png'] ,'png')
+end
 
 
 peopleImages = peopleImages(:,:,1:NUMBER_OF_IMAGES);

@@ -45,8 +45,12 @@ end
 
     function [output] = boxesIntersect(box1, box2)
         %starts at the lower left, then has a W / H
-        a = [box1.MinX box1.MaxY abs(box1.MinX - box1.MaxX) abs(box1.MinY - box1.MaxY)];
-        b = [box2.MinX box2.MaxY abs(box2.MinX - box2.MaxX) abs(box2.MinY - box2.MaxY)];
+        %a = [box1.MinX box1.MaxY abs(box1.MinX - box1.MaxX) abs(box1.MinY - box1.MaxY)];
+        %b = [box2.MinX box2.MaxY abs(box2.MinX - box2.MaxX) abs(box2.MinY - box2.MaxY)];
+        %change the coordinate system so that rectangles start from the top
+        %left and not the bottom right....
+        a = [box1.MinX box1.MaxY-abs(box1.MinY - box1.MaxY) abs(box1.MinX - box1.MaxX) abs(box1.MinY - box1.MaxY)];
+        b = [box2.MinX box2.MaxY-abs(box2.MinY - box2.MaxY) abs(box2.MinX - box2.MaxX) abs(box2.MinY - box2.MaxY)]; %need to change the Y space, as the height goes down the image.
         area = rectint(a,b);
         if(area <= 0)
             output = false;

@@ -10,7 +10,7 @@ gt = LoadGroundTruthData();
 
 IMAGEHEIGHT = 124;
 IMAGEWIDTH = 76;
-NUMBER_OF_IMAGES = 10000;
+NUMBER_OF_IMAGES = 7000;
 
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
@@ -23,7 +23,7 @@ peopleImagesMap = containers.Map;
 nonPeopleImages = {};
 mkdir('OutputImages')
 tic
-for i = 1 : 1
+for i = 1 : 2
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
@@ -61,12 +61,14 @@ for i = 1 : 1
     end
 end
 toc
+clear movie a gt subIm
 peopleImages = ConvertFromCellArray(peopleImagesMap.values);
+clear peopleImagesMap
 nonPeopleImages = ConvertFromCellArray(nonPeopleImages);
 
-for i = 1 : size(nonPeopleImages, 3)
-    imwrite(nonPeopleImages(:,:,i),['NonPedImages/' 'p' num2str(i) '.png'] ,'png')
-end
+%for i = 1 : size(nonPeopleImages, 3)
+ %   imwrite(nonPeopleImages(:,:,i),['NonPedImages/' 'p' num2str(i) '.png'] ,'png')
+%end
 
 
 peopleImages = peopleImages(:,:,1:NUMBER_OF_IMAGES);

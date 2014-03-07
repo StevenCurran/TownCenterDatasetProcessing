@@ -8,8 +8,8 @@ nBlocks = numel(blockSize);
 
 gt = LoadGroundTruthData();
 
-IMAGEHEIGHT = 124;
-IMAGEWIDTH = 76;
+IMAGEHEIGHT = 52;
+IMAGEWIDTH = 32;
 NUMBER_OF_IMAGES = 7000;
 
 if (exist('OutputImages','dir') == 7);
@@ -23,7 +23,7 @@ peopleImagesMap = containers.Map;
 nonPeopleImages = {};
 mkdir('OutputImages')
 tic
-for i = 1 : 2
+for i = 1 : length(blockSize)
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
@@ -71,8 +71,8 @@ nonPeopleImages = ConvertFromCellArray(nonPeopleImages);
 %end
 
 
-peopleImages = peopleImages(:,:,1:NUMBER_OF_IMAGES);
-nonPeopleImages = nonPeopleImages(:,:,1:NUMBER_OF_IMAGES);
+peopleImages = peopleImages(:,:,1:end);
+nonPeopleImages = nonPeopleImages(:,:,1:end);
 %This may be able to be moved up, so that the cell array conversion will be
 %over less elements.
 %should we shuffle here??

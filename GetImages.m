@@ -10,7 +10,7 @@ gt = LoadGroundTruthData();
 
 IMAGEHEIGHT = 124;
 IMAGEWIDTH = 76;
-NUMBER_OF_IMAGES = 7000;
+NUMBER_OF_IMAGES = 2000;
 
 if (exist('OutputImages','dir') == 7);
     rmdir('OutputImages','s');
@@ -23,7 +23,7 @@ peopleImagesMap = containers.Map;
 nonPeopleImages = {};
 mkdir('OutputImages')
 tic
-for i = 1 : 2
+for i = 1 : 1
     disp('block reading')
     a = read(movie,[blockSize(i) blockSize(i)+499]);
     disp('block read')
